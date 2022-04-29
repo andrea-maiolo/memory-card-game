@@ -22,8 +22,6 @@ function App() {
     return newCard;
   }
 
-  console.log(cards);
-
   const isGameOver = function () {
     setGameOver((prevState) => !prevState);
   };
@@ -31,8 +29,10 @@ function App() {
   //check if player clicked all cards
   //if so increase difficulty
   const levelUp = function () {
-    let a = cards.filter((c) => (c.isHold === true ? true : false));
-    console.log(a);
+    let b = cards.every((c) => c.isHold === true);
+    if (b == true) {
+      console.log("time to level up");
+    }
   };
 
   const handleCardClick = function (id) {
@@ -40,13 +40,13 @@ function App() {
     if (currentCard.isHold === true) {
       isGameOver();
     } else {
-      levelUp();
       currentCard.isHold = !currentCard.isHold;
+      const updatedCards = [...cards];
+      const index = cards.findIndex((c) => c.id === id);
+      updatedCards[index] = currentCard;
+      setCards(updatedCards);
+      levelUp();
     }
-    const updatedCards = [...cards];
-    const index = cards.findIndex((c) => c.id === id);
-    updatedCards[index] = currentCard;
-    setCards(updatedCards);
   };
 
   const cardsElements = cards.map((c) => {
