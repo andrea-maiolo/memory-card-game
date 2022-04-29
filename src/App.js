@@ -23,13 +23,30 @@ function App() {
   }
 
   console.log(cards);
-  //rivisita questa funzione perche il gioco e diverso da quello dei dadi
+
+  const isGameOver = function () {
+    setGameOver((prevState) => !prevState);
+  };
+
+  //check if player clicked all cards
+  //if so increase difficulty
+  const levelUp = function () {
+    let a = cards.filter((c) => (c.isHold === true ? true : false));
+    console.log(a);
+  };
+
   const handleCardClick = function (id) {
-    setCards((prevCards) =>
-      prevCards.map((card) => {
-        return card.id === id ? { ...card, isHold: !card.isHold } : card;
-      })
-    );
+    const currentCard = cards.find((c) => c.id === id);
+    if (currentCard.isHold === true) {
+      isGameOver();
+    } else {
+      levelUp();
+      currentCard.isHold = !currentCard.isHold;
+    }
+    const updatedCards = [...cards];
+    const index = cards.findIndex((c) => c.id === id);
+    updatedCards[index] = currentCard;
+    setCards(updatedCards);
   };
 
   const cardsElements = cards.map((c) => {
@@ -46,7 +63,8 @@ function App() {
 
   return (
     <main>
-      <div className="cardContainer">{cardsElements}</div>
+      {!gameOver && <div className="cardContainer">{cardsElements}</div>}
+      {gameOver && <p>Game over</p>}
     </main>
   );
 }
