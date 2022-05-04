@@ -20,8 +20,10 @@ function App() {
   }, [0]);
 
   const movingIntoStorage = function () {
-    setHighScore(currentScore);
-    window.localStorage.setItem("highScore", JSON.stringify(currentScore));
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
+      window.localStorage.setItem("highScore", JSON.stringify(currentScore));
+    }
   };
 
   //generate new cards
