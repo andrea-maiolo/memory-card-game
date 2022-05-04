@@ -20,8 +20,8 @@ function App() {
   }, [0]);
 
   const movingIntoStorage = function () {
-    let h = JSON.stringify(highScore);
-    window.localStorage.setItem("highScore", h);
+    setHighScore(currentScore);
+    window.localStorage.setItem("highScore", JSON.stringify(currentScore));
   };
 
   //generate new cards
@@ -49,6 +49,7 @@ function App() {
   }, [level]);
 
   const isGameOver = function () {
+    movingIntoStorage();
     setGameOver((prevState) => !prevState);
   };
 
@@ -92,11 +93,13 @@ function App() {
       newArrayOfCards[index] = currentCard;
       setCards(newArrayOfCards);
       setCurrentScore((prevState) => prevState + 1);
-      setHighScore((prevState) => prevState + 1);
-      movingIntoStorage();
     } else if (currentCard.isHold === true) {
       isGameOver();
     }
+  };
+
+  const handleGameOverClick = function () {
+    window.location.reload();
   };
 
   const cardsElements = cards.map((c) => {
@@ -114,15 +117,26 @@ function App() {
   return (
     <main>
       {!gameOver && (
-        <div className="cardContainer">
-          <p>current score</p>
-          <h2>{currentScore}</h2>
-          <p>High Score</p>
-          <h2>{highScore}</h2>
-          {cardsElements}
+        <div className="startingPage">
+          <div className="scores">
+            <p id="cs-para">Current score</p>
+            <h2 id="cs-number">{currentScore}</h2>
+            <p id="hs-para">High score</p>
+            <h2 id="hs-number">{highScore}</h2>
+          </div>
+          <div className="cardContainer">{cardsElements}</div>
         </div>
       )}
-      {gameOver && <p>Game over</p>}
+      {gameOver && (
+        <div className="finalPage">
+          <h2>Game over</h2>
+          <h3>High score</h3>
+          <h2>{highScore}</h2>
+          <button id="playAgain" onClick={handleGameOverClick}>
+            Play again
+          </button>
+        </div>
+      )}
     </main>
   );
 }

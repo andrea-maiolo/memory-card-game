@@ -12,14 +12,77 @@ code {
     monospace;
 }
 
+.startingPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scores {
+  background-color: #4ac2f1;
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  align-items: center;
+}
+
+#cs-para {
+  font-size: large;
+  font-weight: 700;
+  font-family: "Courier New", Courier, monospace;
+  text-decoration: underline;
+}
+
+#hs-para {
+  font-size: large;
+  font-weight: 700;
+  font-family: "Courier New", Courier, monospace;
+  text-decoration: underline;
+}
+
+#cs-number {
+  font-size: larger;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#hs-number {
+  font-size: larger;
+  font-family: "Courier New", Courier, monospace;
+}
+
 .cardContainer {
   display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .singleCard {
   margin: 15px;
   padding: 5px;
-  border: 1px solid black;
+  box-shadow: 2px 4px 5px rgb(157, 152, 152);
+}
+
+.finalPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#playAgain {
+  box-shadow: 2px 4px 4px #4ac2f1;
+  background-color: rgb(216, 215, 215);
+  border: none;
+  width: 5rem;
+  height: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  /*Big smartphones [426px -> 600px]*/
+  .cardContainer {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 425px) {
+  /*Small smartphones [325px -> 425px]*/
+  .cardContainer {
+    flex-direction: column;
+  }
 }
