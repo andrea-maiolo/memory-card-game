@@ -9,6 +9,8 @@ function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
+  console.log(highScore);
+
   //check if there is an high score
   useEffect(() => {
     let provisionalHS = JSON.parse(localStorage.getItem("highScore"));
